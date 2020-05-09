@@ -25,7 +25,12 @@
         let continueAnimation = false;
         let animationId = null;
         async function loadModel() {
-            net = await bodyPix.load();
+            net = await bodyPix.load({
+                architecture: 'MobileNetV1',
+                outputStride: 16,
+                multiplier: 0.25,
+                quantBytes: 2,
+            });
         }
 
         async function getImages() {
