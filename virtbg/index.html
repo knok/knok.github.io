@@ -2,7 +2,9 @@
 <html>
 
 <head>
+    <!-- 京 -->
   <title>BodyPix</title>
+  <meta charset="UTF-8">
   <!-- Load TensorFlow.js -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
   <!-- Load BodyPix -->
@@ -22,10 +24,19 @@
     <canvas id="canvas"></canvas>
     <!-- <img src="image.jpg" id="image"> -->
     <div id="dropArea">
+        <div>drop here your image file</div>
         <img src="spider-web-2083087_960_720.jpg" id="bg">
     </div>
-    <a href="https://qiita.com/knok/items/b3eb87769151ac04efeb">任意のバーチャル背景を使えるページを作った(Qiita article)</a>
-    <a href="http://blog.daionet.gr.jp/knok-e/2020/05/10/virtual-background-using-webcam/">Virtual Background using webcam (English article)</a>
+    <div>
+    <ul>
+        <li>
+            <a href="https://qiita.com/knok/items/b3eb87769151ac04efeb">任意のバーチャル背景を使えるページを作った(Qiita article)</a>
+        </li>
+        <li>
+            <a href="http://blog.daionet.gr.jp/knok-e/2020/05/10/virtual-background-using-webcam/">Virtual Background using webcam (English article)</a>
+        </li>
+    </ul>
+    </div>
     <script>
         let localStream = null;
         let localVideo = document.getElementById('video');
