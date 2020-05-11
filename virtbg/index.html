@@ -21,14 +21,52 @@
     </div>
     <canvas id="canvas"></canvas>
     <!-- <img src="image.jpg" id="image"> -->
-    <img src="spider-web-2083087_960_720.jpg" id="bg">
+    <div id="dropArea">
+        <img src="spider-web-2083087_960_720.jpg" id="bg">
+    </div>
     <a href="https://qiita.com/knok/items/b3eb87769151ac04efeb">任意のバーチャル背景を使えるページを作った(Qiita article)</a>
+    <a href="http://blog.daionet.gr.jp/knok-e/2020/05/10/virtual-background-using-webcam/">Virtual Background using webcam (English article)</a>
     <script>
         let localStream = null;
         let localVideo = document.getElementById('video');
         let net = null;
         let continueAnimation = false;
         let animationId = null;
+        let area = document.getElementById('dropArea');
+        area.addEventListener('dragover', function(ev) {
+            ev.preventDefault();
+            area.classList.add('dragover');
+        });
+        area.addEventListener('dragleave', function(ev) {
+            ev.preventDefault();
+            area.classList.remove('dragover');
+        });
+        area.addEventListener('drop', function(ev) {
+            ev.preventDefault();
+            area.classList.remove('dragenter');
+            var files = ev.dataTransfer.files;
+            console.log('dnd');
+            photoPreview('onChange', files[0]);
+        });
+        function photoPreview(event, f = null) {
+            var file = f;
+            if (file == null) {
+                file = event.target.files[0];
+            }
+            var reader = new FileReader();
+            var preview = document.getElementById('dropArea');
+            var previewImage = document.getElementById('bg');
+            if (previewImage != null) {
+                preview.removeChild(previewImage);
+            }
+            reader.onload = function(event) {
+                var img = document.createElement('img');
+                img.setAttribute("src", reader.result);
+                img.setAttribute("id", "bg");
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
         async function loadModel() {
             net = await bodyPix.load({
                 architecture: 'MobileNetV1',
